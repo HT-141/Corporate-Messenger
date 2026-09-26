@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ChannelsModule } from './channels/channels.module';
+import { MessagesModule } from './messages/messages.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { ChannelsModule } from './channels/channels.module';
     UsersModule,
     AuthModule,
     ChannelsModule,
+    MessagesModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
