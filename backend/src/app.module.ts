@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { ChannelsModule } from './channels/channels.module';
 import { MessagesModule } from './messages/messages.module';
 import { FilesModule } from './files/files.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FilesModule } from './files/files.module';
     ChannelsModule,
     MessagesModule,
     FilesModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

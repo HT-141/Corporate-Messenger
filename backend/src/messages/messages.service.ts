@@ -5,6 +5,7 @@ import { Message } from './message.entity';
 import { User } from '../users/user.entity';
 import { Channel } from '../channels/channel.entity';
 import { CreateMessageDto } from './create-message.dto';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class MessagesService {
@@ -15,6 +16,7 @@ export class MessagesService {
     private usersRepository: Repository<User>,
     @InjectRepository(Channel)
     private channelsRepository: Repository<Channel>,
+    private notificationsService: NotificationsService,
   ) {}
 
   async create(dto: CreateMessageDto): Promise<Message> {
@@ -58,7 +60,16 @@ export class MessagesService {
       message.recipient = recipient;
     }
 
-    return this.messagesRepository.save(message);
+    const savedMessage = await this.messagesRepository.save(message);
+
+    if (dto.recipientId) {
+      await this.notificationsService.create(
+        dto.recipientId,
+        `Новое сообщение от ${author.name}: ${dto.text}`,
+      );
+    }
+
+    return savedMessage;
   }
 
   async findByChannel(channelId: string): Promise<Message[]> {
